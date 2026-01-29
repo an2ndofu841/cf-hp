@@ -1,0 +1,58 @@
+"use server";
+
+import { revalidatePath } from "next/cache";
+import { redirect } from "next/navigation";
+import { createClient } from "@/lib/supabase/server";
+
+export async function login(formData: FormData) {
+  const supabase = await createClient();
+
+  const email = formData.get("email") as string;
+  const password = formData.get("password") as string;
+  const lang = formData.get("lang") as string || "ja";
+
+  const { error } = await supabase.auth.signInWithPassword({
+    email,
+    password,
+  });
+
+  if (error) {
+    // In server actions called by form action, returning a value doesn't automatically 
+    // propagate to the client unless using useFormState (useActionState in React 19).
+    // For simplicity with basic form action, we'll redirect with error query param.
+    redirect(`/${lang}/auth/login?error=${encodeURIComponent(error.message)}`);
+  }
+
+  revalidatePath("/", "layout");
+  redirect(`/${lang}/adventure-log`);
+}
+
+export async function signup(formData: FormData) {
+  const supabase = await createClient();
+
+  const email = formData.get("email") as string;
+  const password = formData.get("password") as string;
+  const lang = formData.get("lang") as string || "ja";
+
+  const { error } = await supabase.auth.signUp({
+    email,
+    password,
+    options: {
+        // emailRedirectTo: `${origin}/auth/callback`,
+    }
+  });
+
+  if (error) {
+    redirect(`/${lang}/auth/signup?error=${encodeURIComponent(error.message)}`);
+  }
+
+  revalidatePath("/", "layout");
+  redirect(`/${lang}/adventure-log?welcome=true`);
+}
+
+export async function logout(lang: string = "ja") {
+    const supabase = await createClient();
+    await supabase.auth.signOut();
+    revalidatePath("/", "layout");
+    redirect(`/${lang}`);
+}
