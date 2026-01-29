@@ -42,6 +42,7 @@ export default async function SignupPage({
                   id="email" 
                   name="email" 
                   type="email" 
+                  autoComplete="email"
                   required 
                   className="w-full bg-gray-100 text-black border-4 border-gray-300 p-2 font-mono focus:border-pixel-blue focus:outline-none"
                   placeholder="hero@example.com"
@@ -54,6 +55,7 @@ export default async function SignupPage({
                   id="password" 
                   name="password" 
                   type="password" 
+                  autoComplete="new-password"
                   required 
                   className="w-full bg-gray-100 text-black border-4 border-gray-300 p-2 font-mono focus:border-pixel-blue focus:outline-none"
                   placeholder="********"
