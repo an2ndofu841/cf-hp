@@ -1,0 +1,144 @@
+"use client";
+
+import React, { useEffect, useState } from "react";
+import { PixelCard } from "@/components/ui/pixel-card";
+import { LinkForm } from "./link-form";
+import { LevelDisplay } from "./level-display";
+import { TrophyList } from "./trophy-list";
+import { pointCardApi, LinkedGroup, LevelInfo, Trophy } from "./api";
+import { Loader2, ChevronDown } from "lucide-react";
+
+export function PointCardSection() {
+  const [loading, setLoading] = useState(true);
+  const [links, setLinks] = useState<LinkedGroup[]>([]);
+  const [selectedGroupId, setSelectedGroupId] = useState<number | null>(null);
+  
+  const [levelInfo, setLevelInfo] = useState<LevelInfo | null>(null);
+  const [trophies, setTrophies] = useState<Trophy[]>([]);
+  const [dataLoading, setDataLoading] = useState(false);
+
+  // Initial Fetch: Get Linked Groups
+  const fetchLinks = async () => {
+    try {
+      setLoading(true);
+      const myLinks = await pointCardApi.getMyLinks();
+      setLinks(myLinks);
+      if (myLinks.length > 0) {
+        setSelectedGroupId(myLinks[0].group_id);
+      }
+    } catch (error) {
+      console.error("Failed to fetch links", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchLinks();
+  }, []);
+
+  // Fetch Data when Group Changes
+  useEffect(() => {
+    if (!selectedGroupId) return;
+
+    const fetchData = async () => {
+      setDataLoading(true);
+      try {
+        const [lvl, trph] = await Promise.all([
+          pointCardApi.getLevel(selectedGroupId),
+          pointCardApi.getTrophies(selectedGroupId)
+        ]);
+        setLevelInfo(lvl);
+        setTrophies(trph);
+      } catch (error) {
+        console.error("Failed to fetch point data", error);
+      } finally {
+        setDataLoading(false);
+      }
+    };
+
+    fetchData();
+  }, [selectedGroupId]);
+
+  if (loading) {
+    return (
+      <PixelCard className="animate-pulse h-48 flex items-center justify-center">
+        <Loader2 className="animate-spin text-gray-400" />
+      </PixelCard>
+    );
+  }
+
+  // Not Linked State
+  if (links.length === 0) {
+    return (
+      <PixelCard className="border-4 border-dashed border-gray-400 bg-gray-50 dark:bg-zinc-900">
+        <h2 className="text-xl font-bold mb-4 flex items-center gap-2">
+          <span className="bg-gray-800 text-white px-2 py-1 text-sm">OFFLINE</span>
+          POINT CARD
+        </h2>
+        <LinkForm onSuccess={fetchLinks} />
+      </PixelCard>
+    );
+  }
+
+  // Linked State
+  return (
+    <div className="space-y-6">
+      <div className="flex items-center justify-between">
+        <h2 className="text-2xl font-bold bg-pixel-blue text-white px-4 py-1 border-2 border-black">
+          POINT CARD
+        </h2>
+        
+        {/* Group Selector (if multiple) */}
+        {links.length > 1 && (
+          <div className="relative">
+            <select
+              value={selectedGroupId || ""}
+              onChange={(e) => setSelectedGroupId(Number(e.target.value))}
+              className="appearance-none bg-white border-4 border-black px-4 py-1 pr-8 font-bold text-sm focus:outline-none cursor-pointer"
+            >
+              {links.map((link) => (
+                <option key={link.id} value={link.group_id}>
+                  {link.group_name}
+                </option>
+              ))}
+            </select>
+            <ChevronDown className="absolute right-2 top-1/2 -translate-y-1/2 pointer-events-none" size={16} />
+          </div>
+        )}
+        {links.length === 1 && (
+            <span className="font-bold text-sm text-gray-500">{links[0].group_name}</span>
+        )}
+      </div>
+
+      {dataLoading ? (
+        <div className="space-y-4 animate-pulse">
+           <div className="h-32 bg-gray-200 rounded border-2 border-gray-300"></div>
+           <div className="h-64 bg-gray-200 rounded border-2 border-gray-300"></div>
+        </div>
+      ) : (
+        <>
+          {levelInfo && <LevelDisplay levelInfo={levelInfo} />}
+          
+          <PixelCard>
+            <h3 className="text-lg font-bold mb-4 border-b-2 border-dashed border-gray-300 pb-2">
+              TROPHIES
+            </h3>
+            <TrophyList trophies={trophies} />
+          </PixelCard>
+        </>
+      )}
+      
+      {/* Add Link Button (for linking more groups) */}
+      {/* Optional: Could be a modal or toggle */}
+      <details className="group">
+        <summary className="cursor-pointer text-xs text-gray-500 hover:text-pixel-blue list-none text-right mt-2">
+          [+] LINK ANOTHER CARD
+        </summary>
+        <div className="mt-4">
+            <LinkForm onSuccess={fetchLinks} />
+        </div>
+      </details>
+    </div>
+  );
+}

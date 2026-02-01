@@ -4,7 +4,8 @@ import { Footer } from "@/components/layout/footer";
 import { PixelCard } from "@/components/ui/pixel-card";
 import { PixelButton } from "@/components/ui/pixel-button";
 import { redirect } from "next/navigation";
-import { User, Shield, Star, LogOut } from "lucide-react";
+import { User, LogOut } from "lucide-react";
+import { PointCardSection } from "@/components/features/point-card/point-card-section";
 
 export default async function AdventureLogPage({
   params,
@@ -43,70 +44,42 @@ export default async function AdventureLogPage({
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {/* Left Column: Avatar & Basic Info */}
-            <div className="md:col-span-1">
-               <PixelCard className="flex flex-col items-center gap-4 h-full">
-                  <div className="w-32 h-32 bg-gray-200 border-4 border-black flex items-center justify-center">
+            <div className="md:col-span-1 space-y-6">
+               <PixelCard className="flex flex-col items-center gap-4">
+                  <div className="w-32 h-32 bg-gray-200 border-4 border-black flex items-center justify-center overflow-hidden">
                      {/* Placeholder for Avatar */}
                      <User size={64} className="text-gray-400" />
                   </div>
-                  <div className="text-center">
+                  <div className="text-center w-full">
                      <div className="text-xs text-gray-500 font-bold">NAME</div>
-                     <div className="text-xl font-bold truncate max-w-[200px]">{user.email?.split('@')[0]}</div>
+                     <div className="text-lg font-bold truncate px-2">{user.email?.split('@')[0]}</div>
                   </div>
                   <div className="text-center w-full">
                      <div className="text-xs text-gray-500 font-bold mb-1">CLASS</div>
-                     <div className="bg-pixel-blue text-white py-1 font-bold border-2 border-black">
+                     <div className="bg-pixel-blue text-white py-1 font-bold border-2 border-black text-sm">
                         BEGINNER
                      </div>
                   </div>
                </PixelCard>
-            </div>
-
-            {/* Right Column: Stats & Actions */}
-            <div className="md:col-span-2 flex flex-col gap-6">
-                {/* Stats */}
-                <PixelCard>
-                    <h3 className="text-xl font-bold mb-4 border-b-2 border-dashed border-gray-300 pb-2">STATUS</h3>
-                    <div className="space-y-4">
-                        <div className="flex items-center justify-between">
-                            <span className="flex items-center gap-2"><Star size={16} /> LEVEL</span>
-                            <span className="font-bold">1</span>
-                        </div>
-                        <div className="flex items-center justify-between">
-                            <span className="flex items-center gap-2"><Shield size={16} /> QUESTS CLEARED</span>
-                            <span className="font-bold">0</span>
-                        </div>
-                        <div className="flex items-center justify-between">
-                             <span className="flex items-center gap-2">EXP (Points)</span>
-                             <div className="w-32 h-4 bg-gray-200 border-2 border-black relative">
-                                 <div className="absolute top-0 left-0 h-full bg-pixel-green w-[10%]"></div>
-                             </div>
-                        </div>
-                    </div>
-                </PixelCard>
 
                 {/* Account Actions */}
                 <div className="flex flex-col gap-4">
-                     <form action="/auth/signout" method="post"> 
-                        {/* Note: Server Action for signout needs to be imported or handled via API route if using form action directly 
-                            Or we can use a client component wrapper. 
-                            Let's use a simpler link for now or just a button that calls our action via a client wrapper.
-                            Wait, we made a 'logout' action in src/app/auth/actions.ts.
-                            We need to wrap it in a form.
-                        */}
-                     </form>
-                     
                      {/* Temporary Logout Button Implementation */}
                      <form action={async () => {
                          "use server";
                          const { logout } = await import("@/app/auth/actions");
                          await logout(lang);
                      }}>
-                        <PixelButton variant="outline" className="w-full flex items-center justify-center gap-2">
-                            <LogOut size={16} /> SAVE & QUIT (LOGOUT)
+                        <PixelButton variant="outline" className="w-full flex items-center justify-center gap-2 text-sm">
+                            <LogOut size={16} /> SAVE & QUIT
                         </PixelButton>
                      </form>
                 </div>
+            </div>
+
+            {/* Right Column: Point Card & Stats */}
+            <div className="md:col-span-2 flex flex-col gap-6">
+                <PointCardSection />
             </div>
           </div>
         </div>
