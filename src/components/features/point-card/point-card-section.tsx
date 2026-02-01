@@ -6,7 +6,8 @@ import { LinkForm } from "./link-form";
 import { LevelDisplay } from "./level-display";
 import { TrophyList } from "./trophy-list";
 import { pointCardApi, LinkedGroup, LevelInfo, Trophy } from "./api";
-import { Loader2, ChevronDown } from "lucide-react";
+import { Loader2, ChevronDown, Trash2 } from "lucide-react";
+import { PixelButton } from "@/components/ui/pixel-button";
 
 export function PointCardSection() {
   const [loading, setLoading] = useState(true);
@@ -24,12 +25,32 @@ export function PointCardSection() {
       const myLinks = await pointCardApi.getMyLinks();
       setLinks(myLinks);
       if (myLinks.length > 0) {
-        setSelectedGroupId(myLinks[0].group_id);
+        // Keep selected if still exists, else select first
+        if (!selectedGroupId || !myLinks.find(l => l.group_id === selectedGroupId)) {
+            setSelectedGroupId(myLinks[0].group_id);
+        }
+      } else {
+        setSelectedGroupId(null);
       }
     } catch (error) {
       console.error("Failed to fetch links", error);
     } finally {
       setLoading(false);
+    }
+  };
+
+  const handleUnlink = async () => {
+    if (!selectedGroupId) return;
+    if (!confirm("Are you sure you want to unlink this card? You will need a NEW code to link again.")) return;
+
+    try {
+        setLoading(true);
+        await pointCardApi.unlinkGroup(selectedGroupId);
+        await fetchLinks();
+    } catch (error) {
+        console.error("Failed to unlink", error);
+        alert("Failed to unlink card.");
+        setLoading(false);
     }
   };
 
@@ -109,6 +130,15 @@ export function PointCardSection() {
         {links.length === 1 && (
             <span className="font-bold text-sm text-gray-500">{links[0].group_name}</span>
         )}
+        
+        {/* Unlink Button */}
+        <button 
+            onClick={handleUnlink}
+            className="ml-2 text-gray-400 hover:text-pixel-red transition-colors"
+            title="Unlink Card"
+        >
+            <Trash2 size={18} />
+        </button>
       </div>
 
       {dataLoading ? (

@@ -74,5 +74,13 @@ export const pointCardApi = {
       group_id: link.group_id,
       group_name: link.groups?.name || `Group ${link.group_id}`,
     })) as LinkedGroup[];
+  },
+
+  unlinkGroup: async (groupId: number) => {
+    const supabase = createClient();
+    const { error } = await supabase.rpc("unlink_user_group", {
+      p_group_id: groupId,
+    });
+    if (error) throw error;
   }
 };
