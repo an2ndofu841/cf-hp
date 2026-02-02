@@ -65,12 +65,29 @@ export function PointCardSection() {
     const fetchData = async () => {
       setDataLoading(true);
       try {
-        const [lvl, trph] = await Promise.all([
-          pointCardApi.getLevel(selectedGroupId),
-          pointCardApi.getTrophies(selectedGroupId)
-        ]);
-        setLevelInfo(lvl);
-        setTrophies(trph);
+        const data = await pointCardApi.getPointCardData(selectedGroupId);
+        
+        // Map response to LevelInfo
+        setLevelInfo({
+            level: data.level,
+            total_points: data.total_points,
+            next_remaining: data.next_remaining,
+            // group_name is handled by the selector/link list
+        });
+
+        // Map response to Trophy[]
+        // Note: Edge Function returns 'earned', UI expects 'achieved'
+        // Also need to generate IDs if not provided
+        const mappedTrophies: Trophy[] = (data.trophies || []).map((t: any, index: number) => ({
+            id: t.id || `trophy-${index}`,
+            name: t.name,
+            description: t.description,
+            rarity: t.rarity,
+            achieved: t.earned, // Map earned -> achieved
+            achieved_at: t.achieved_at
+        }));
+
+        setTrophies(mappedTrophies);
       } catch (error) {
         console.error("Failed to fetch point data", error);
       } finally {

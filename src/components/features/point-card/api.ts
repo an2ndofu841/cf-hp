@@ -25,31 +25,37 @@ export type LinkedGroup = {
 // RPC Actions (Client-side wrapper)
 export const pointCardApi = {
   claimLinkCode: async (code: string) => {
-    const supabase = createClient();
-    const { data, error } = await supabase.rpc("claim_user_link_code", {
-      p_code: code,
+    const response = await fetch("/api/pointcard/claim", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ code }),
     });
-    if (error) throw error;
-    return data; // { group_id, point_user_id }
+
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(errorData.error || "Failed to claim code");
+    }
+
+    return await response.json(); // Expected: { group_id, point_user_id, ... }
   },
 
-  getLevel: async (groupId: number) => {
-    const supabase = createClient();
-    const { data, error } = await supabase.rpc("get_linked_level", {
-      p_group_id: groupId,
+  getPointCardData: async (groupId: number) => {
+    const response = await fetch("/api/pointcard/fetch", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ groupId }),
     });
-    if (error) throw error;
-    // Ensure array or single object handling
-    return (Array.isArray(data) ? data[0] : data) as LevelInfo;
-  },
 
-  getTrophies: async (groupId: number) => {
-    const supabase = createClient();
-    const { data, error } = await supabase.rpc("get_linked_trophies", {
-      p_group_id: groupId,
-    });
-    if (error) throw error;
-    return data as Trophy[];
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(errorData.error || "Failed to fetch data");
+    }
+
+    return await response.json(); // Expected: { level_info: ..., trophies: ... } or flat structure
   },
 
   getMyLinks: async () => {
