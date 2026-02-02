@@ -21,9 +21,10 @@ export async function POST(request: Request) {
     const body = await request.json();
     const { groupId } = body;
 
-    // groupId might be 0 or optional depending on logic, but prompt implies we send it if we have it.
-    // However, the prompt says "fetch" takes "groupId".
-    
+    if (!groupId) {
+      return NextResponse.json({ error: "Group ID is required" }, { status: 400 });
+    }
+
     const response = await fetch(EDGE_FUNCTION_URL, {
       method: "POST",
       headers: {
@@ -32,7 +33,7 @@ export async function POST(request: Request) {
       },
       body: JSON.stringify({
         action: "fetch",
-        groupId: groupId || 1, // Default to 1 if not provided, or maybe handle differently? Prompt says "groupId: 1" in example.
+        groupId: groupId,
         hpUserId: user.id,
       }),
     });

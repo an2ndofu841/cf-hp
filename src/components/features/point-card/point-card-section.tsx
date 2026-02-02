@@ -68,22 +68,36 @@ export function PointCardSection() {
         const data = await pointCardApi.getPointCardData(selectedGroupId);
         
         // Map response to LevelInfo
-        setLevelInfo({
-            level: data.level,
-            total_points: data.total_points,
-            next_remaining: data.next_remaining,
-            // group_name is handled by the selector/link list
-        });
+        // API response structure: { level: { current_level, total_points, next_remaining, ... }, trophies: ... }
+        if (data.level) {
+          setLevelInfo({
+            level: data.level.current_level,
+            total_points: data.level.total_points,
+            next_remaining: data.level.next_remaining,
+            group_id: selectedGroupId,
+          });
+        }
 
         // Map response to Trophy[]
-        // Note: Edge Function returns 'earned', UI expects 'achieved'
-        // Also need to generate IDs if not provided
+        const mapRarity = (r: string): Trophy["rarity"] => {
+          const upper = r.toUpperCase();
+          if (upper === "BRONZE") return "common";
+          if (upper === "SILVER") return "rare";
+          if (upper === "GOLD") return "epic";
+          if (upper === "PLATINUM") return "legendary";
+          // Fallback for existing lowercase or other values
+          if (["common", "rare", "epic", "legendary"].includes(r.toLowerCase())) {
+            return r.toLowerCase() as Trophy["rarity"];
+          }
+          return "common";
+        };
+
         const mappedTrophies: Trophy[] = (data.trophies || []).map((t: any, index: number) => ({
             id: t.id || `trophy-${index}`,
             name: t.name,
             description: t.description,
-            rarity: t.rarity,
-            achieved: t.earned, // Map earned -> achieved
+            rarity: mapRarity(t.rarity || "common"),
+            achieved: t.earned,
             achieved_at: t.achieved_at
         }));
 
