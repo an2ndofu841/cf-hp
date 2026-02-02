@@ -33,6 +33,7 @@ export async function POST(request: Request) {
       headers: {
         "Content-Type": "application/json",
         "x-api-key": API_KEY,
+        "Authorization": `Bearer ${process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY}`,
       },
       body: JSON.stringify({
         action: "claim",
