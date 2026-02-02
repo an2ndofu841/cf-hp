@@ -3,11 +3,17 @@ import { NextResponse } from "next/server";
 
 const EDGE_FUNCTION_URL = process.env.POINT_CARD_FUNCTION_URL || "https://slrlavptojlkvujoiied.functions.supabase.co/link-profile";
 const API_KEY = process.env.POINT_CARD_API_KEY;
+const ANON_KEY = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || process.env.SUPABASE_ANON_KEY;
 
 export async function POST(request: Request) {
   if (!API_KEY) {
     console.error("POINT_CARD_API_KEY is not set");
-    return NextResponse.json({ error: "Server configuration error" }, { status: 500 });
+    return NextResponse.json({ error: "Server configuration error (API Key)" }, { status: 500 });
+  }
+
+  if (!ANON_KEY) {
+    console.error("SUPABASE_ANON_KEY is not set");
+    return NextResponse.json({ error: "Server configuration error (Anon Key)" }, { status: 500 });
   }
 
   try {
@@ -33,7 +39,7 @@ export async function POST(request: Request) {
       headers: {
         "Content-Type": "application/json",
         "x-api-key": API_KEY,
-        "Authorization": `Bearer ${process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY}`,
+        "Authorization": `Bearer ${ANON_KEY}`,
       },
       body: JSON.stringify({
         action: "claim",
