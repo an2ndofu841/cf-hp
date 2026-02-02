@@ -1,26 +1,7 @@
 import { createClient } from "@/lib/supabase/client";
+import { LevelInfo, LinkedGroup, Trophy } from "./types";
 
-export type LevelInfo = {
-  level: number;
-  total_points: number;
-  next_remaining: number;
-  group_name?: string; // Optional, depends on RPC
-};
-
-export type Trophy = {
-  id: string;
-  name: string;
-  description?: string;
-  rarity: "common" | "rare" | "epic" | "legendary";
-  achieved: boolean;
-  achieved_at?: string;
-};
-
-export type LinkedGroup = {
-  id: number; // link id
-  group_id: number;
-  group_name: string;
-};
+export type { LevelInfo, LinkedGroup, Trophy };
 
 // RPC Actions (Client-side wrapper)
 export const pointCardApi = {

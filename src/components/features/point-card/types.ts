@@ -23,3 +23,9 @@ export interface UserLink {
   point_user_id: number;
   created_at: string;
 }
+
+export interface LinkedGroup {
+  id: number; // link id
+  group_id: number;
+  group_name: string;
+}
