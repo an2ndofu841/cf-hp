@@ -30,11 +30,21 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: var(--font-dot-gothic), monospace;
-  cursor: none; /* Hide default cursor */
+  /* cursor: none; Hide default cursor - Moved to scoped CSS or component specific */
 }
 
-a, button, .cursor-pointer, input, select, textarea {
-  cursor: none; /* Hide default cursor on interactive elements too */
+/* Custom cursor only for non-admin pages usually handled by layout wrapping */
+body:not(.admin-body) {
+  cursor: none;
+}
+
+body:not(.admin-body) a,
+body:not(.admin-body) button,
+body:not(.admin-body) .cursor-pointer,
+body:not(.admin-body) input,
+body:not(.admin-body) select,
+body:not(.admin-body) textarea {
+  cursor: none;
 }
 
 /* Text Shadow Glow */

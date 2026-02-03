@@ -18,6 +18,10 @@
     "next": "16.1.6",
     "react": "19.2.3",
     "react-dom": "19.2.3",
+    "@tiptap/react": "^2.11.0",
+    "@tiptap/pm": "^2.11.0",
+    "@tiptap/starter-kit": "^2.11.0",
+    "@radix-ui/react-dialog": "^1.0.5",
     "tailwind-merge": "^3.4.0"
   },
   "devDependencies": {

@@ -29,7 +29,7 @@ export default async function AdminLayout({
 
   return (
     <html lang="ja">
-        <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+        <body className={`${geistSans.variable} ${geistMono.variable} antialiased admin-body`}>
             <div className="flex min-h-screen bg-zinc-50 dark:bg-zinc-950 font-sans text-zinc-900 dark:text-zinc-100 selection:bg-zinc-900 selection:text-white dark:selection:bg-white dark:selection:text-black">
               <AdminSidebar />
               <div className="flex-1 flex flex-col h-screen overflow-hidden bg-white dark:bg-zinc-950">
