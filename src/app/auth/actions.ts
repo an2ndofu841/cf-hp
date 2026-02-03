@@ -47,7 +47,7 @@ export async function signup(formData: FormData) {
   }
 
   revalidatePath("/", "layout");
-  redirect(`/${lang}/adventure-log?welcome=true`);
+  redirect(`/${lang}/auth/verify-email`);
 }
 
 export async function logout(lang: string = "ja") {
