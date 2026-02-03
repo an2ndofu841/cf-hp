@@ -73,6 +73,7 @@ export function PointCardSection() {
           setLevelInfo({
             level: data.level.current_level,
             total_points: data.level.total_points,
+            current_exp: data.level.current_exp || 0,
             next_remaining: data.level.next_remaining,
             group_id: selectedGroupId,
           });

@@ -1,6 +1,7 @@
 export interface LevelInfo {
   level: number;
   total_points: number;
+  current_exp: number; // Added
   next_remaining: number;
   group_id: number;
   group_name?: string; // Optional if available
