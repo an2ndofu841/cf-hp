@@ -1,6 +1,3 @@
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"; // Assuming you have standard UI components or I'll use simple divs
-// Actually, let's use standard HTML/Tailwind for admin since pixel components might be too quirky for CMS
-// But wait, the prompt said "simple functional standard UI".
 import Link from "next/link";
 import { Newspaper, Calendar } from "lucide-react";
 
