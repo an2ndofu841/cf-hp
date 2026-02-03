@@ -4,6 +4,8 @@ import Link from "next/link";
 import Image from "next/image";
 import { createClient } from "@/lib/supabase/server";
 
+import { logout } from "@/app/auth/actions";
+
 interface HeaderProps {
   lang: string;
 }
@@ -33,9 +35,19 @@ export async function Header({ lang }: HeaderProps) {
         {/* Auth Buttons */}
         <div className="flex items-center gap-3">
            {user ? (
-              <PixelButton href={`/${lang}/adventure-log`} variant="secondary" size="sm" className="border-pixel-yellow text-xs h-10 px-4 whitespace-nowrap">
-                 ★ MY PAGE
-              </PixelButton>
+              <>
+                <PixelButton href={`/${lang}/adventure-log`} variant="secondary" size="sm" className="border-pixel-yellow text-xs h-10 px-4 whitespace-nowrap">
+                   ★ MY PAGE
+                </PixelButton>
+                <form action={async () => {
+                  "use server";
+                  await logout(lang);
+                }}>
+                  <PixelButton type="submit" variant="outline" size="sm" className="text-xs h-10 px-4 whitespace-nowrap">
+                     LOGOUT
+                  </PixelButton>
+                </form>
+              </>
            ) : (
               <>
                 <PixelButton href={`/${lang}/auth/login`} variant="outline" size="sm" className="text-xs h-10 px-6 whitespace-nowrap bg-background text-foreground hover:bg-foreground hover:text-background">
