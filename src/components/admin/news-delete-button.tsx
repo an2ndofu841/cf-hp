@@ -8,14 +8,14 @@ export function DeleteNewsButton({ id }: { id: string }) {
   const [isDeleting, setIsDeleting] = useState(false);
 
   const handleDelete = async () => {
-    if (!confirm("Are you sure you want to delete this news?")) {
+    if (!confirm("このニュースを削除しますか？")) {
       return;
     }
 
     setIsDeleting(true);
     const result = await deleteNews(id);
     if (!result.success) {
-      alert(`Failed to delete news: ${result.error}`);
+      alert(`削除に失敗しました: ${result.error}`);
       setIsDeleting(false);
     }
   };
@@ -26,8 +26,8 @@ export function DeleteNewsButton({ id }: { id: string }) {
       onClick={handleDelete}
       disabled={isDeleting}
       className="p-2 text-zinc-500 hover:text-red-600 hover:bg-red-50 dark:hover:bg-red-900/20 rounded transition-colors disabled:opacity-50"
-      aria-label="Delete news"
-      title="Delete"
+      aria-label="ニュースを削除"
+      title="削除"
     >
       <Trash2 size={16} />
     </button>

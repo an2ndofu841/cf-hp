@@ -5,6 +5,11 @@ import { DeleteNewsButton } from "@/components/admin/news-delete-button";
 
 export default async function AdminNewsPage() {
   const supabase = await createClient();
+  const statusLabel: Record<string, string> = {
+    published: "公開",
+    draft: "下書き",
+    archived: "アーカイブ",
+  };
   
   const { data: news, error } = await supabase
     .from("news")
@@ -12,19 +17,19 @@ export default async function AdminNewsPage() {
     .order("created_at", { ascending: false });
 
   if (error) {
-    return <div className="text-red-500">Error loading news: {error.message}</div>;
+    return <div className="text-red-500">ニュースの読み込みに失敗しました: {error.message}</div>;
   }
 
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-bold">News Management</h1>
+        <h1 className="text-2xl font-bold">ニュース管理</h1>
         <Link 
           href="/admin/news/new" 
           className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md text-sm font-medium transition-colors"
         >
           <Plus size={16} />
-          Create New
+          新規作成
         </Link>
       </div>
 
@@ -32,11 +37,11 @@ export default async function AdminNewsPage() {
         <table className="w-full text-left text-sm">
           <thead className="bg-zinc-50 dark:bg-zinc-950 border-b border-zinc-200 dark:border-zinc-800">
             <tr>
-              <th className="px-6 py-3 font-medium text-zinc-500">Date</th>
-              <th className="px-6 py-3 font-medium text-zinc-500">Title (JA)</th>
-              <th className="px-6 py-3 font-medium text-zinc-500">Status</th>
-              <th className="px-6 py-3 font-medium text-zinc-500">Category</th>
-              <th className="px-6 py-3 font-medium text-zinc-500 text-right">Actions</th>
+              <th className="px-6 py-3 font-medium text-zinc-500">公開日</th>
+              <th className="px-6 py-3 font-medium text-zinc-500">タイトル（日本語）</th>
+              <th className="px-6 py-3 font-medium text-zinc-500">ステータス</th>
+              <th className="px-6 py-3 font-medium text-zinc-500">カテゴリ</th>
+              <th className="px-6 py-3 font-medium text-zinc-500 text-right">操作</th>
             </tr>
           </thead>
           <tbody className="divide-y divide-zinc-200 dark:divide-zinc-800">
@@ -57,7 +62,7 @@ export default async function AdminNewsPage() {
                         : 'bg-yellow-100 text-yellow-800 border-yellow-200 dark:bg-yellow-900/30 dark:text-yellow-400 dark:border-yellow-800'
                       }`}
                     >
-                      {item.status}
+                      {statusLabel[item.status] || item.status}
                     </span>
                   </td>
                   <td className="px-6 py-4 text-zinc-500 uppercase text-xs">
@@ -77,7 +82,7 @@ export default async function AdminNewsPage() {
             ) : (
               <tr>
                 <td colSpan={5} className="px-6 py-12 text-center text-zinc-500">
-                  No news found. Create your first news article.
+                  ニュースがありません。最初の記事を作成してください。
                 </td>
               </tr>
             )}

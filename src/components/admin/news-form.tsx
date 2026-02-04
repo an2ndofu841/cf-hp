@@ -55,7 +55,7 @@ export function NewsForm({ initialData }: { initialData?: NewsItem }) {
       .upload(filePath, file);
 
     if (uploadError) {
-      alert(`Upload failed: ${uploadError.message}`);
+      alert(`アップロードに失敗しました: ${uploadError.message}`);
       setIsUploading(false);
       return;
     }
@@ -87,11 +87,11 @@ export function NewsForm({ initialData }: { initialData?: NewsItem }) {
             router.push('/admin/news');
             router.refresh();
         } else {
-            alert(`Failed to save news: ${result.error}`);
+            alert(`保存に失敗しました: ${result.error}`);
             setIsSubmitting(false);
         }
     } catch (e) {
-        alert("An unexpected error occurred. Please check console for details.");
+        alert("予期しないエラーが発生しました。詳細はコンソールをご確認ください。");
         console.error(e);
         setIsSubmitting(false);
     }
@@ -113,11 +113,11 @@ export function NewsForm({ initialData }: { initialData?: NewsItem }) {
                 className="flex items-center text-sm font-medium text-zinc-500 hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors"
             >
                 <ArrowLeft size={16} className="mr-2" />
-                Back to List
+                一覧へ戻る
             </Link>
             <div className="flex items-center gap-4">
                 <span className="text-xs text-zinc-400">
-                    {initialData?.id ? "Editing existing post" : "Creating new post"}
+                    {initialData?.id ? "既存の投稿を編集" : "新規投稿を作成"}
                 </span>
                 <button
                     type="submit"
@@ -125,7 +125,7 @@ export function NewsForm({ initialData }: { initialData?: NewsItem }) {
                     className="flex items-center gap-2 bg-zinc-900 dark:bg-zinc-100 hover:bg-zinc-800 dark:hover:bg-zinc-200 text-white dark:text-zinc-900 px-6 py-2 rounded-full font-medium text-sm transition-all shadow-sm hover:shadow-md disabled:opacity-50 disabled:shadow-none"
                 >
                     {isSubmitting ? <Loader2 className="animate-spin" size={16} /> : <Save size={16} />}
-                    Save Changes
+                    保存する
                 </button>
             </div>
         </div>
@@ -138,8 +138,8 @@ export function NewsForm({ initialData }: { initialData?: NewsItem }) {
                 {/* Japanese Content */}
                 <div className="space-y-4">
                     <div className="flex items-center justify-between">
-                        <h3 className="font-semibold text-lg text-zinc-900 dark:text-zinc-100">Japanese Content</h3>
-                        <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300">PRIMARY</span>
+                        <h3 className="font-semibold text-lg text-zinc-900 dark:text-zinc-100">日本語コンテンツ</h3>
+                        <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300">必須</span>
                     </div>
                     
                     <div className="space-y-2">
@@ -149,16 +149,16 @@ export function NewsForm({ initialData }: { initialData?: NewsItem }) {
                             required
                             defaultValue={initialData?.title_ja}
                             className="w-full px-0 py-2 bg-transparent border-b-2 border-zinc-200 dark:border-zinc-800 focus:border-zinc-900 dark:focus:border-zinc-100 text-3xl font-bold placeholder-zinc-300 dark:placeholder-zinc-700 focus:outline-none transition-colors"
-                            placeholder="Post Title (JA)"
+                            placeholder="タイトル（日本語）"
                         />
                     </div>
 
                     <div className="space-y-2">
-                        <label className="text-xs font-semibold text-zinc-400 uppercase tracking-wider">Body Content</label>
+                        <label className="text-xs font-semibold text-zinc-400 uppercase tracking-wider">本文</label>
                         <RichTextEditor 
                             content={bodyJa} 
                             onChange={setBodyJa} 
-                            placeholder="Write your content here..."
+                            placeholder="本文を入力してください..."
                         />
                     </div>
                 </div>
@@ -168,8 +168,8 @@ export function NewsForm({ initialData }: { initialData?: NewsItem }) {
                 {/* English Content */}
                 <div className="space-y-4">
                     <div className="flex items-center justify-between">
-                        <h3 className="font-semibold text-lg text-zinc-900 dark:text-zinc-100">English Content</h3>
-                        <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-zinc-100 text-zinc-500 dark:bg-zinc-800">OPTIONAL</span>
+                        <h3 className="font-semibold text-lg text-zinc-900 dark:text-zinc-100">英語コンテンツ</h3>
+                        <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-zinc-100 text-zinc-500 dark:bg-zinc-800">任意</span>
                     </div>
                     
                     <div className="space-y-2">
@@ -178,16 +178,16 @@ export function NewsForm({ initialData }: { initialData?: NewsItem }) {
                             name="title_en"
                             defaultValue={initialData?.title_en || ""}
                             className="w-full px-0 py-2 bg-transparent border-b-2 border-zinc-200 dark:border-zinc-800 focus:border-zinc-900 dark:focus:border-zinc-100 text-2xl font-bold placeholder-zinc-300 dark:placeholder-zinc-700 focus:outline-none transition-colors"
-                            placeholder="Post Title (EN)"
+                            placeholder="タイトル（英語）"
                         />
                     </div>
 
                     <div className="space-y-2">
-                        <label className="text-xs font-semibold text-zinc-400 uppercase tracking-wider">Body Content (EN)</label>
+                        <label className="text-xs font-semibold text-zinc-400 uppercase tracking-wider">本文（英語）</label>
                         <RichTextEditor 
                             content={bodyEn} 
                             onChange={setBodyEn} 
-                            placeholder="Write content in English..."
+                            placeholder="本文（英語）を入力してください..."
                         />
                     </div>
                 </div>
@@ -197,24 +197,24 @@ export function NewsForm({ initialData }: { initialData?: NewsItem }) {
             <div className="space-y-6">
                 {/* Publishing Card */}
                 <div className="bg-white dark:bg-zinc-900 p-5 rounded-xl border border-zinc-200 dark:border-zinc-800 shadow-sm space-y-4">
-                    <h3 className="text-sm font-semibold text-zinc-900 dark:text-zinc-100">Publishing</h3>
+                    <h3 className="text-sm font-semibold text-zinc-900 dark:text-zinc-100">公開設定</h3>
 
                     <div className="space-y-1.5">
-                        <label htmlFor="status" className="text-xs font-medium text-zinc-500">Status</label>
+                        <label htmlFor="status" className="text-xs font-medium text-zinc-500">ステータス</label>
                         <select 
                             id="status" 
                             name="status"
                             defaultValue={initialData?.status || "draft"}
                             className="w-full px-3 py-2 rounded-md bg-zinc-50 dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-800 text-sm focus:outline-none focus:ring-2 focus:ring-zinc-900 dark:focus:ring-zinc-100"
                         >
-                            <option value="draft">Draft</option>
-                            <option value="published">Published</option>
-                            <option value="archived">Archived</option>
+                            <option value="draft">下書き</option>
+                            <option value="published">公開</option>
+                            <option value="archived">アーカイブ</option>
                         </select>
                     </div>
 
                     <div className="space-y-1.5">
-                        <label htmlFor="published_at" className="text-xs font-medium text-zinc-500">Publish Date</label>
+                        <label htmlFor="published_at" className="text-xs font-medium text-zinc-500">公開日時</label>
                         <input 
                             type="datetime-local" 
                             id="published_at" 
@@ -227,10 +227,10 @@ export function NewsForm({ initialData }: { initialData?: NewsItem }) {
 
                 {/* Metadata Card */}
                 <div className="bg-white dark:bg-zinc-900 p-5 rounded-xl border border-zinc-200 dark:border-zinc-800 shadow-sm space-y-4">
-                    <h3 className="text-sm font-semibold text-zinc-900 dark:text-zinc-100">Metadata</h3>
+                    <h3 className="text-sm font-semibold text-zinc-900 dark:text-zinc-100">メタ情報</h3>
 
                     <div className="space-y-1.5">
-                        <label htmlFor="slug" className="text-xs font-medium text-zinc-500">Slug URL *</label>
+                        <label htmlFor="slug" className="text-xs font-medium text-zinc-500">スラッグ（URL）*</label>
                         <input 
                             type="text" 
                             id="slug" 
@@ -243,26 +243,26 @@ export function NewsForm({ initialData }: { initialData?: NewsItem }) {
                     </div>
 
                     <div className="space-y-1.5">
-                        <label htmlFor="category" className="text-xs font-medium text-zinc-500">Category</label>
+                        <label htmlFor="category" className="text-xs font-medium text-zinc-500">カテゴリ</label>
                         <select 
                             id="category" 
                             name="category"
                             defaultValue={initialData?.category || ""}
                             className="w-full px-3 py-2 rounded-md bg-zinc-50 dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-800 text-sm focus:outline-none focus:ring-2 focus:ring-zinc-900 dark:focus:ring-zinc-100"
                         >
-                            <option value="">Uncategorized</option>
-                            <option value="release">Release</option>
-                            <option value="live">Live</option>
-                            <option value="media">Media</option>
-                            <option value="info">Info</option>
-                            <option value="blog">Blog</option>
+                            <option value="">未分類</option>
+                            <option value="release">リリース</option>
+                            <option value="live">ライブ</option>
+                            <option value="media">メディア</option>
+                            <option value="info">お知らせ</option>
+                            <option value="blog">ブログ</option>
                         </select>
                     </div>
                 </div>
 
                 {/* Image Card */}
                 <div className="bg-white dark:bg-zinc-900 p-5 rounded-xl border border-zinc-200 dark:border-zinc-800 shadow-sm space-y-4">
-                    <h3 className="text-sm font-semibold text-zinc-900 dark:text-zinc-100">Featured Image</h3>
+                    <h3 className="text-sm font-semibold text-zinc-900 dark:text-zinc-100">アイキャッチ画像</h3>
 
                     <div className="space-y-2">
                         {!eyecatchUrl ? (
@@ -282,7 +282,7 @@ export function NewsForm({ initialData }: { initialData?: NewsItem }) {
                                             <Upload className="text-zinc-400 dark:text-zinc-500" size={20} />
                                         </div>
                                     )}
-                                    <span className="text-xs font-medium text-zinc-500">Upload Image</span>
+                                    <span className="text-xs font-medium text-zinc-500">画像をアップロード</span>
                                 </div>
                             </div>
                         ) : (

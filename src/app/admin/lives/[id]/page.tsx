@@ -37,7 +37,7 @@ export default async function AdminLiveEditPage({
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <h1 className="text-2xl font-bold">
-          {isNew ? "Create Event" : "Edit Event"}
+          {isNew ? "ライブ情報を作成" : "ライブ情報を編集"}
         </h1>
       </div>
       

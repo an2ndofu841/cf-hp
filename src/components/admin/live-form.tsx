@@ -38,7 +38,7 @@ export function LiveForm({ initialData, venues }: { initialData?: LiveItem, venu
     try {
         await upsertLive(formData);
     } catch (e) {
-        alert("Failed to save live event. Check console for details.");
+        alert("保存に失敗しました。詳細はコンソールをご確認ください。");
         console.error(e);
         setIsSubmitting(false);
     }
@@ -59,7 +59,7 @@ export function LiveForm({ initialData, venues }: { initialData?: LiveItem, venu
             className="flex items-center text-zinc-500 hover:text-zinc-900 dark:hover:text-zinc-100"
         >
             <ArrowLeft size={16} className="mr-2" />
-            Back to List
+            一覧へ戻る
         </Link>
         <button
             type="submit"
@@ -67,7 +67,7 @@ export function LiveForm({ initialData, venues }: { initialData?: LiveItem, venu
             className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-md font-medium transition-colors disabled:opacity-50"
         >
             {isSubmitting ? <Loader2 className="animate-spin" size={18} /> : <Save size={18} />}
-            Save Event
+            保存する
         </button>
       </div>
 
@@ -77,11 +77,11 @@ export function LiveForm({ initialData, venues }: { initialData?: LiveItem, venu
         {/* Main Content */}
         <div className="md:col-span-2 space-y-6">
             <div className="space-y-4 bg-white dark:bg-zinc-900 p-6 rounded-lg border border-zinc-200 dark:border-zinc-800">
-                <h3 className="font-semibold text-lg border-b pb-2 mb-4">Event Details (Japanese)</h3>
+                <h3 className="font-semibold text-lg border-b pb-2 mb-4">イベント詳細（日本語）</h3>
                 
                 <div className="space-y-2">
                     <label htmlFor="title_ja" className="block text-sm font-medium text-zinc-700 dark:text-zinc-300">
-                        Title <span className="text-red-500">*</span>
+                        タイトル <span className="text-red-500">*</span>
                     </label>
                     <input 
                         type="text" 
@@ -97,7 +97,7 @@ export function LiveForm({ initialData, venues }: { initialData?: LiveItem, venu
                 <div className="grid grid-cols-2 gap-4">
                     <div className="space-y-2">
                         <label htmlFor="price_ja" className="block text-sm font-medium text-zinc-700 dark:text-zinc-300">
-                            Price
+                            料金
                         </label>
                         <input 
                             type="text" 
@@ -110,7 +110,7 @@ export function LiveForm({ initialData, venues }: { initialData?: LiveItem, venu
                     </div>
                     <div className="space-y-2">
                         <label htmlFor="performers_ja" className="block text-sm font-medium text-zinc-700 dark:text-zinc-300">
-                            Performers
+                            出演者
                         </label>
                         <input 
                             type="text" 
@@ -125,7 +125,7 @@ export function LiveForm({ initialData, venues }: { initialData?: LiveItem, venu
 
                 <div className="space-y-2">
                     <label htmlFor="notes_ja" className="block text-sm font-medium text-zinc-700 dark:text-zinc-300">
-                        Notes / Description
+                        備考・詳細
                     </label>
                     <textarea 
                         id="notes_ja" 
@@ -139,11 +139,11 @@ export function LiveForm({ initialData, venues }: { initialData?: LiveItem, venu
             </div>
 
             <div className="space-y-4 bg-white dark:bg-zinc-900 p-6 rounded-lg border border-zinc-200 dark:border-zinc-800">
-                <h3 className="font-semibold text-lg border-b pb-2 mb-4">Event Details (English)</h3>
+                <h3 className="font-semibold text-lg border-b pb-2 mb-4">イベント詳細（英語）</h3>
                 
                 <div className="space-y-2">
                     <label htmlFor="title_en" className="block text-sm font-medium text-zinc-700 dark:text-zinc-300">
-                        Title (EN)
+                        タイトル（英語）
                     </label>
                     <input 
                         type="text" 
@@ -158,7 +158,7 @@ export function LiveForm({ initialData, venues }: { initialData?: LiveItem, venu
                 <div className="grid grid-cols-2 gap-4">
                     <div className="space-y-2">
                         <label htmlFor="price_en" className="block text-sm font-medium text-zinc-700 dark:text-zinc-300">
-                            Price (EN)
+                            料金（英語）
                         </label>
                         <input 
                             type="text" 
@@ -171,7 +171,7 @@ export function LiveForm({ initialData, venues }: { initialData?: LiveItem, venu
                     </div>
                      <div className="space-y-2">
                         <label htmlFor="performers_en" className="block text-sm font-medium text-zinc-700 dark:text-zinc-300">
-                            Performers (EN)
+                            出演者（英語）
                         </label>
                         <input 
                             type="text" 
@@ -189,11 +189,11 @@ export function LiveForm({ initialData, venues }: { initialData?: LiveItem, venu
         {/* Sidebar / Meta */}
         <div className="space-y-6">
             <div className="bg-white dark:bg-zinc-900 p-6 rounded-lg border border-zinc-200 dark:border-zinc-800 space-y-4">
-                <h3 className="font-semibold text-lg border-b pb-2 mb-4">Scheduling</h3>
+                <h3 className="font-semibold text-lg border-b pb-2 mb-4">公開設定</h3>
 
                 <div className="space-y-2">
                     <label htmlFor="status" className="block text-sm font-medium text-zinc-700 dark:text-zinc-300">
-                        Status
+                        ステータス
                     </label>
                     <select 
                         id="status" 
@@ -201,14 +201,14 @@ export function LiveForm({ initialData, venues }: { initialData?: LiveItem, venu
                         defaultValue={initialData?.status || "draft"}
                         className="w-full px-3 py-2 border rounded-md dark:bg-zinc-800 dark:border-zinc-700"
                     >
-                        <option value="draft">Draft (下書き)</option>
-                        <option value="published">Published (公開)</option>
+                        <option value="draft">下書き</option>
+                        <option value="published">公開</option>
                     </select>
                 </div>
 
                 <div className="space-y-2">
                     <label htmlFor="date" className="block text-sm font-medium text-zinc-700 dark:text-zinc-300">
-                        Date <span className="text-red-500">*</span>
+                        開催日時 <span className="text-red-500">*</span>
                     </label>
                     <input 
                         type="datetime-local" 
@@ -223,7 +223,7 @@ export function LiveForm({ initialData, venues }: { initialData?: LiveItem, venu
                 <div className="grid grid-cols-2 gap-4">
                     <div className="space-y-2">
                         <label htmlFor="open_time" className="block text-sm font-medium text-zinc-700 dark:text-zinc-300">
-                            Open
+                        開場
                         </label>
                         <input 
                             type="text" 
@@ -236,7 +236,7 @@ export function LiveForm({ initialData, venues }: { initialData?: LiveItem, venu
                     </div>
                     <div className="space-y-2">
                         <label htmlFor="start_time" className="block text-sm font-medium text-zinc-700 dark:text-zinc-300">
-                            Start
+                        開演
                         </label>
                         <input 
                             type="text" 
@@ -251,11 +251,11 @@ export function LiveForm({ initialData, venues }: { initialData?: LiveItem, venu
             </div>
 
             <div className="bg-white dark:bg-zinc-900 p-6 rounded-lg border border-zinc-200 dark:border-zinc-800 space-y-4">
-                <h3 className="font-semibold text-lg border-b pb-2 mb-4">Location</h3>
+                <h3 className="font-semibold text-lg border-b pb-2 mb-4">会場</h3>
 
                 <div className="space-y-2">
                     <label htmlFor="venue_id" className="block text-sm font-medium text-zinc-700 dark:text-zinc-300">
-                        Venue
+                        会場
                     </label>
                     <select 
                         id="venue_id" 
@@ -263,13 +263,13 @@ export function LiveForm({ initialData, venues }: { initialData?: LiveItem, venu
                         defaultValue={initialData?.venue_id || ""}
                         className="w-full px-3 py-2 border rounded-md dark:bg-zinc-800 dark:border-zinc-700"
                     >
-                        <option value="">Select venue...</option>
+                        <option value="">会場を選択...</option>
                         {venues.map(v => (
                             <option key={v.id} value={v.id}>{v.name_ja}</option>
                         ))}
                     </select>
                     <p className="text-xs text-zinc-500">
-                        Venues can be managed in DB (adding UI later)
+                        会場はDBで管理します（UIは後で追加予定）
                     </p>
                 </div>
             </div>

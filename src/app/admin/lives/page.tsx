@@ -5,6 +5,11 @@ import { revalidatePath } from "next/cache";
 
 export default async function AdminLivesPage() {
   const supabase = await createClient();
+  const statusLabel: Record<string, string> = {
+    published: "公開",
+    draft: "下書き",
+    archived: "アーカイブ",
+  };
   
   const { data: lives, error } = await supabase
     .from("lives")
@@ -12,7 +17,7 @@ export default async function AdminLivesPage() {
     .order("date", { ascending: false });
 
   if (error) {
-    return <div className="text-red-500">Error loading lives: {error.message}</div>;
+    return <div className="text-red-500">ライブの読み込みに失敗しました: {error.message}</div>;
   }
 
   // Server Action for deletion
@@ -27,13 +32,13 @@ export default async function AdminLivesPage() {
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-bold">Lives Management</h1>
+        <h1 className="text-2xl font-bold">ライブ管理</h1>
         <Link 
           href="/admin/lives/new" 
           className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md text-sm font-medium transition-colors"
         >
           <Plus size={16} />
-          Create New
+          新規作成
         </Link>
       </div>
 
@@ -41,11 +46,11 @@ export default async function AdminLivesPage() {
         <table className="w-full text-left text-sm">
           <thead className="bg-zinc-50 dark:bg-zinc-950 border-b border-zinc-200 dark:border-zinc-800">
             <tr>
-              <th className="px-6 py-3 font-medium text-zinc-500">Date</th>
-              <th className="px-6 py-3 font-medium text-zinc-500">Title (JA)</th>
-              <th className="px-6 py-3 font-medium text-zinc-500">Venue</th>
-              <th className="px-6 py-3 font-medium text-zinc-500">Status</th>
-              <th className="px-6 py-3 font-medium text-zinc-500 text-right">Actions</th>
+              <th className="px-6 py-3 font-medium text-zinc-500">開催日</th>
+              <th className="px-6 py-3 font-medium text-zinc-500">タイトル（日本語）</th>
+              <th className="px-6 py-3 font-medium text-zinc-500">会場</th>
+              <th className="px-6 py-3 font-medium text-zinc-500">ステータス</th>
+              <th className="px-6 py-3 font-medium text-zinc-500 text-right">操作</th>
             </tr>
           </thead>
           <tbody className="divide-y divide-zinc-200 dark:divide-zinc-800">
@@ -71,7 +76,7 @@ export default async function AdminLivesPage() {
                         : 'bg-yellow-100 text-yellow-800 border-yellow-200 dark:bg-yellow-900/30 dark:text-yellow-400 dark:border-yellow-800'
                       }`}
                     >
-                      {item.status}
+                      {statusLabel[item.status] || item.status}
                     </span>
                   </td>
                   <td className="px-6 py-4 text-right flex items-center justify-end gap-2">
@@ -87,7 +92,7 @@ export default async function AdminLivesPage() {
                             type="submit"
                             className="p-2 text-zinc-500 hover:text-red-600 hover:bg-red-50 dark:hover:bg-red-900/20 rounded transition-colors"
                             onClick={(e) => {
-                                if (!confirm("Are you sure you want to delete this live event?")) {
+                                if (!confirm("このライブ情報を削除しますか？")) {
                                     e.preventDefault();
                                 }
                             }}
@@ -101,7 +106,7 @@ export default async function AdminLivesPage() {
             ) : (
               <tr>
                 <td colSpan={5} className="px-6 py-12 text-center text-zinc-500">
-                  No live events found. Create your first event.
+                  ライブ情報がありません。最初のイベントを作成してください。
                 </td>
               </tr>
             )}

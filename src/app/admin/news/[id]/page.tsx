@@ -30,7 +30,7 @@ export default async function AdminNewsEditPage({
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <h1 className="text-2xl font-bold">
-          {isNew ? "Create News" : "Edit News"}
+          {isNew ? "ニュース作成" : "ニュース編集"}
         </h1>
       </div>
       

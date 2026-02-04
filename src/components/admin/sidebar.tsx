@@ -13,14 +13,14 @@ import {
 import { logout } from "@/app/auth/actions";
 
 const menuItems = [
-  { icon: LayoutDashboard, label: "Dashboard", href: "/admin" },
-  { icon: Newspaper, label: "News", href: "/admin/news" },
-  { icon: Calendar, label: "Lives", href: "/admin/lives" },
-  { icon: Music, label: "Discography", href: "/admin/disco" },
-  { icon: Video, label: "Movies", href: "/admin/movies" },
-  { icon: ShoppingBag, label: "Goods", href: "/admin/goods" },
-  { icon: Users, label: "Members", href: "/admin/members" },
-  { icon: Settings, label: "Settings", href: "/admin/settings" },
+  { icon: LayoutDashboard, label: "ダッシュボード", href: "/admin" },
+  { icon: Newspaper, label: "ニュース", href: "/admin/news" },
+  { icon: Calendar, label: "ライブ", href: "/admin/lives" },
+  { icon: Music, label: "ディスコグラフィ", href: "/admin/disco" },
+  { icon: Video, label: "動画", href: "/admin/movies" },
+  { icon: ShoppingBag, label: "グッズ", href: "/admin/goods" },
+  { icon: Users, label: "メンバー", href: "/admin/members" },
+  { icon: Settings, label: "設定", href: "/admin/settings" },
 ];
 
 export function AdminSidebar() {
@@ -31,14 +31,14 @@ export function AdminSidebar() {
             <span className="text-white dark:text-zinc-900 font-bold text-sm">CP</span>
         </div>
         <div>
-            <h1 className="text-sm font-bold tracking-tight text-zinc-900 dark:text-white">ADMIN CONSOLE</h1>
+            <h1 className="text-sm font-bold tracking-tight text-zinc-900 dark:text-white">管理コンソール</h1>
             <p className="text-[10px] text-zinc-500 uppercase tracking-wider">Crazy Fantasy</p>
         </div>
       </div>
 
       <nav className="flex-1 px-3 py-6 space-y-1">
         <div className="px-3 mb-2">
-            <p className="text-xs font-semibold text-zinc-400 uppercase tracking-wider">Content</p>
+            <p className="text-xs font-semibold text-zinc-400 uppercase tracking-wider">コンテンツ</p>
         </div>
         {menuItems.map((item) => (
           <Link 
@@ -58,7 +58,7 @@ export function AdminSidebar() {
                 AD
             </div>
             <div className="flex-1 overflow-hidden">
-                <p className="text-sm font-medium truncate text-zinc-900 dark:text-zinc-100">Admin User</p>
+                <p className="text-sm font-medium truncate text-zinc-900 dark:text-zinc-100">管理者</p>
                 <p className="text-xs text-zinc-500 truncate">admin@mlbl.co.jp</p>
             </div>
         </div>
@@ -68,7 +68,7 @@ export function AdminSidebar() {
         }}>
           <button type="submit" className="flex items-center gap-2 px-2 py-2 w-full rounded-md text-xs font-medium text-zinc-500 hover:text-red-600 hover:bg-red-50 dark:hover:bg-red-900/10 transition-colors">
             <LogOut size={14} />
-            <span>Sign out</span>
+            <span>ログアウト</span>
           </button>
         </form>
       </div>
