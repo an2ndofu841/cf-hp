@@ -2,13 +2,12 @@
 
 import { createClient } from "@/lib/supabase/server";
 import { revalidatePath } from "next/cache";
-import { redirect } from "next/navigation";
 import { checkAdmin } from "@/lib/admin";
 
 export async function upsertLive(formData: FormData) {
   const user = await checkAdmin();
   if (!user) {
-    throw new Error("Unauthorized");
+    return { success: false, error: "Unauthorized" };
   }
 
   const supabase = await createClient();
@@ -48,10 +47,28 @@ export async function upsertLive(formData: FormData) {
 
   if (error) {
     console.error("Error saving live:", error);
-    throw new Error(error.message);
+    return { success: false, error: error.message };
   }
 
   revalidatePath("/admin/lives");
   revalidatePath("/[lang]/live", "page"); // Revalidate public live page
-  redirect("/admin/lives");
+  return { success: true };
+}
+
+export async function deleteLive(id: string) {
+  const user = await checkAdmin();
+  if (!user) {
+    return { success: false, error: "Unauthorized" };
+  }
+
+  const supabase = await createClient();
+  const { error } = await supabase.from("lives").delete().eq("id", id);
+
+  if (error) {
+    console.error("Error deleting live:", error);
+    return { success: false, error: error.message };
+  }
+
+  revalidatePath("/admin/lives");
+  return { success: true };
 }

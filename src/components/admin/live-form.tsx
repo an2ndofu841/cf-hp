@@ -36,7 +36,14 @@ export function LiveForm({ initialData, venues }: { initialData?: LiveItem, venu
   const handleSubmit = async (formData: FormData) => {
     setIsSubmitting(true);
     try {
-        await upsertLive(formData);
+        const result = await upsertLive(formData);
+        if (result.success) {
+            router.push("/admin/lives");
+            router.refresh();
+        } else {
+            alert(`保存に失敗しました: ${result.error}`);
+            setIsSubmitting(false);
+        }
     } catch (e) {
         alert("保存に失敗しました。詳細はコンソールをご確認ください。");
         console.error(e);

@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
-import { Plus, Edit, Trash2 } from "lucide-react";
-import { revalidatePath } from "next/cache";
+import { Plus, Edit } from "lucide-react";
+import { DeleteLiveButton } from "@/components/admin/live-delete-button";
 
 export default async function AdminLivesPage() {
   const supabase = await createClient();
@@ -18,15 +18,6 @@ export default async function AdminLivesPage() {
 
   if (error) {
     return <div className="text-red-500">ライブの読み込みに失敗しました: {error.message}</div>;
-  }
-
-  // Server Action for deletion
-  async function deleteLive(formData: FormData) {
-    "use server";
-    const id = formData.get("id") as string;
-    const supabase = await createClient();
-    await supabase.from("lives").delete().eq("id", id);
-    revalidatePath("/admin/lives");
   }
 
   return (
@@ -86,20 +77,7 @@ export default async function AdminLivesPage() {
                     >
                       <Edit size={16} />
                     </Link>
-                    <form action={deleteLive}>
-                        <input type="hidden" name="id" value={item.id} />
-                        <button 
-                            type="submit"
-                            className="p-2 text-zinc-500 hover:text-red-600 hover:bg-red-50 dark:hover:bg-red-900/20 rounded transition-colors"
-                            onClick={(e) => {
-                                if (!confirm("このライブ情報を削除しますか？")) {
-                                    e.preventDefault();
-                                }
-                            }}
-                        >
-                            <Trash2 size={16} />
-                        </button>
-                    </form>
+                    <DeleteLiveButton id={item.id} />
                   </td>
                 </tr>
               ))
