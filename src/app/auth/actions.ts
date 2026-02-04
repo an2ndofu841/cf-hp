@@ -20,11 +20,11 @@ export async function login(formData: FormData) {
     // In server actions called by form action, returning a value doesn't automatically 
     // propagate to the client unless using useFormState (useActionState in React 19).
     // For simplicity with basic form action, we'll redirect with error query param.
-    redirect(`/${lang}/auth/login?error=${encodeURIComponent(error.message)}`);
+    return redirect(`/${lang}/auth/login?error=${encodeURIComponent(error.message)}`);
   }
 
   revalidatePath("/", "layout");
-  redirect(`/${lang}/adventure-log`);
+  return redirect(`/${lang}/adventure-log`);
 }
 
 export async function signup(formData: FormData) {
@@ -43,16 +43,16 @@ export async function signup(formData: FormData) {
   });
 
   if (error) {
-    redirect(`/${lang}/auth/signup?error=${encodeURIComponent(error.message)}`);
+    return redirect(`/${lang}/auth/signup?error=${encodeURIComponent(error.message)}`);
   }
 
   revalidatePath("/", "layout");
-  redirect(`/${lang}/auth/verify-email`);
+  return redirect(`/${lang}/auth/verify-email`);
 }
 
 export async function logout(lang: string = "ja") {
     const supabase = await createClient();
     await supabase.auth.signOut();
     revalidatePath("/", "layout");
-    redirect(`/${lang}`);
+    return redirect(`/${lang}`);
 }
