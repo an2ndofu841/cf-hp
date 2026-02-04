@@ -6,8 +6,13 @@ import { createClient } from "@/lib/supabase/client";
 import { Loader2, Upload, Save, ArrowLeft, Maximize2, X } from "lucide-react";
 import Link from "next/link";
 import { upsertNews } from "@/app/admin/news/actions";
-import { RichTextEditor } from "./rich-text-editor";
+import dynamic from "next/dynamic";
 import { ImageModal } from "./image-modal";
+
+const RichTextEditor = dynamic(
+  () => import("./rich-text-editor").then((m) => m.RichTextEditor),
+  { ssr: false }
+);
 
 // Define a type that matches the DB schema loosely for the form
 type NewsItem = {
