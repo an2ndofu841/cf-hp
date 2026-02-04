@@ -76,9 +76,17 @@ export function NewsForm({ initialData }: { initialData?: NewsItem }) {
     formData.set("eyecatch_url", eyecatchUrl);
 
     try {
-        await upsertNews(formData);
+        const result = await upsertNews(formData);
+        
+        if (result.success) {
+            router.push('/admin/news');
+            router.refresh();
+        } else {
+            alert(`Failed to save news: ${result.error}`);
+            setIsSubmitting(false);
+        }
     } catch (e) {
-        alert("Failed to save news. Check console for details.");
+        alert("An unexpected error occurred. Please check console for details.");
         console.error(e);
         setIsSubmitting(false);
     }

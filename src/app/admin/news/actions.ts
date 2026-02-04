@@ -2,13 +2,12 @@
 
 import { createClient } from "@/lib/supabase/server";
 import { revalidatePath } from "next/cache";
-import { redirect } from "next/navigation";
 import { checkAdmin } from "@/lib/admin";
 
 export async function upsertNews(formData: FormData) {
   const user = await checkAdmin();
   if (!user) {
-    throw new Error("Unauthorized");
+    return { success: false, error: "Unauthorized" };
   }
 
   const supabase = await createClient();
@@ -42,12 +41,11 @@ export async function upsertNews(formData: FormData) {
 
   if (error) {
     console.error("Error saving news:", error);
-    // In a real app, you'd want to return the error to the form
-    // For now we'll just throw or redirect with error param
-    throw new Error(error.message);
+    return { success: false, error: error.message };
   }
 
   revalidatePath("/admin/news");
   revalidatePath("/[lang]/news", "page"); // Revalidate public news page
-  redirect("/admin/news");
+  
+  return { success: true };
 }
