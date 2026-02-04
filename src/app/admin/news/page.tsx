@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
-import { Plus, Edit, Trash2 } from "lucide-react";
-import { revalidatePath } from "next/cache";
+import { Plus, Edit } from "lucide-react";
+import { DeleteNewsButton } from "@/components/admin/news-delete-button";
 
 export default async function AdminNewsPage() {
   const supabase = await createClient();
@@ -13,15 +13,6 @@ export default async function AdminNewsPage() {
 
   if (error) {
     return <div className="text-red-500">Error loading news: {error.message}</div>;
-  }
-
-  // Server Action for deletion (inline for simplicity in this file for now, usually separate)
-  async function deleteNews(formData: FormData) {
-    "use server";
-    const id = formData.get("id") as string;
-    const supabase = await createClient();
-    await supabase.from("news").delete().eq("id", id);
-    revalidatePath("/admin/news");
   }
 
   return (
@@ -79,20 +70,7 @@ export default async function AdminNewsPage() {
                     >
                       <Edit size={16} />
                     </Link>
-                    <form action={deleteNews}>
-                        <input type="hidden" name="id" value={item.id} />
-                        <button 
-                            type="submit"
-                            className="p-2 text-zinc-500 hover:text-red-600 hover:bg-red-50 dark:hover:bg-red-900/20 rounded transition-colors"
-                            onClick={(e) => {
-                                if (!confirm("Are you sure you want to delete this news?")) {
-                                    e.preventDefault();
-                                }
-                            }}
-                        >
-                            <Trash2 size={16} />
-                        </button>
-                    </form>
+                    <DeleteNewsButton id={item.id} />
                   </td>
                 </tr>
               ))

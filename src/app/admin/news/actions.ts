@@ -49,3 +49,21 @@ export async function upsertNews(formData: FormData) {
   
   return { success: true };
 }
+
+export async function deleteNews(id: string) {
+  const user = await checkAdmin();
+  if (!user) {
+    return { success: false, error: "Unauthorized" };
+  }
+
+  const supabase = await createClient();
+  const { error } = await supabase.from("news").delete().eq("id", id);
+
+  if (error) {
+    console.error("Error deleting news:", error);
+    return { success: false, error: error.message };
+  }
+
+  revalidatePath("/admin/news");
+  return { success: true };
+}
