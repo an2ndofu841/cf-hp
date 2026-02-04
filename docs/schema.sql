@@ -62,6 +62,7 @@ create table lives (
   id uuid primary key default uuid_generate_v4(),
   title_ja text not null,
   title_en text,
+  image_url text,
   description_ja text,
   description_en text,
   date timestamp with time zone not null, -- Event date

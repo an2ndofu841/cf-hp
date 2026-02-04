@@ -18,6 +18,7 @@ export async function upsertLive(formData: FormData) {
   const rawData = {
     title_ja: formData.get("title_ja") as string,
     title_en: formData.get("title_en") as string || null,
+    image_url: formData.get("image_url") as string || null,
     date: formData.get("date") ? new Date(formData.get("date") as string).toISOString() : null,
     open_time: formData.get("open_time") as string || null,
     start_time: formData.get("start_time") as string || null,

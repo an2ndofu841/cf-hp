@@ -2,9 +2,11 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { Loader2, Save, ArrowLeft } from "lucide-react";
+import { Loader2, Save, ArrowLeft, Upload, Maximize2, X } from "lucide-react";
 import Link from "next/link";
 import { upsertLive } from "@/app/admin/lives/actions";
+import { createClient } from "@/lib/supabase/client";
+import { ImageModal } from "@/components/admin/image-modal";
 
 // Types
 type Venue = {
@@ -16,6 +18,7 @@ type LiveItem = {
   id?: string;
   title_ja: string;
   title_en?: string | null;
+  image_url?: string | null;
   date: string; // ISO string
   open_time?: string | null;
   start_time?: string | null;
@@ -31,10 +34,47 @@ type LiveItem = {
 
 export function LiveForm({ initialData, venues }: { initialData?: LiveItem, venues: Venue[] }) {
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isUploading, setIsUploading] = useState(false);
+  const [flyerUrl, setFlyerUrl] = useState(initialData?.image_url || "");
+  const [isPreviewOpen, setIsPreviewOpen] = useState(false);
   const router = useRouter();
+
+  const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (!e.target.files || e.target.files.length === 0) return;
+
+    const file = e.target.files[0];
+    const fileExt = file.name.split(".").pop();
+    const fileName = `${Math.random().toString(36).substring(2)}.${fileExt}`;
+    const filePath = `lives/${fileName}`;
+
+    setIsUploading(true);
+    const supabase = createClient();
+
+    const { error: uploadError } = await supabase.storage
+      .from("images")
+      .upload(filePath, file);
+
+    if (uploadError) {
+      alert(`アップロードに失敗しました: ${uploadError.message}`);
+      setIsUploading(false);
+      return;
+    }
+
+    const { data: { publicUrl } } = supabase.storage
+      .from("images")
+      .getPublicUrl(filePath);
+
+    setFlyerUrl(publicUrl);
+    setIsUploading(false);
+  };
+
+  const handleRemoveImage = () => {
+    setFlyerUrl("");
+  };
 
   const handleSubmit = async (formData: FormData) => {
     setIsSubmitting(true);
+    formData.set("image_url", flyerUrl);
     try {
         const result = await upsertLive(formData);
         if (result.success) {
@@ -79,6 +119,7 @@ export function LiveForm({ initialData, venues }: { initialData?: LiveItem, venu
       </div>
 
       <input type="hidden" name="id" value={initialData?.id || "new"} />
+      <input type="hidden" name="image_url" value={flyerUrl} />
       
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
         {/* Main Content */}
@@ -258,6 +299,59 @@ export function LiveForm({ initialData, venues }: { initialData?: LiveItem, venu
             </div>
 
             <div className="bg-white dark:bg-zinc-900 p-6 rounded-lg border border-zinc-200 dark:border-zinc-800 space-y-4">
+                <h3 className="font-semibold text-lg border-b pb-2 mb-4">フライヤー画像</h3>
+
+                <div className="space-y-2">
+                    {!flyerUrl ? (
+                        <div className="border-2 border-dashed border-zinc-200 dark:border-zinc-700 rounded-lg p-6 text-center hover:bg-zinc-50 dark:hover:bg-zinc-800/50 transition-colors cursor-pointer relative group">
+                            <input 
+                                type="file" 
+                                accept="image/*" 
+                                className="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10"
+                                onChange={handleFileUpload}
+                                disabled={isUploading}
+                            />
+                            <div className="flex flex-col items-center justify-center gap-2">
+                                {isUploading ? (
+                                    <Loader2 className="animate-spin text-zinc-400" size={24} />
+                                ) : (
+                                    <div className="w-10 h-10 rounded-full bg-zinc-100 dark:bg-zinc-800 flex items-center justify-center group-hover:bg-zinc-200 dark:group-hover:bg-zinc-700 transition-colors">
+                                        <Upload className="text-zinc-400 dark:text-zinc-500" size={20} />
+                                    </div>
+                                )}
+                                <span className="text-xs font-medium text-zinc-500">画像をアップロード</span>
+                            </div>
+                        </div>
+                    ) : (
+                        <div className="relative group rounded-lg overflow-hidden border border-zinc-200 dark:border-zinc-700 bg-zinc-100 dark:bg-zinc-950 aspect-video">
+                            {/* eslint-disable-next-line @next/next/no-img-element */}
+                            <img 
+                                src={flyerUrl} 
+                                alt="Flyer preview" 
+                                className="w-full h-full object-cover" 
+                            />
+                            <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-2">
+                                <button
+                                    type="button"
+                                    onClick={() => setIsPreviewOpen(true)}
+                                    className="p-2 bg-white/20 hover:bg-white/40 backdrop-blur-sm rounded-full text-white transition-colors"
+                                >
+                                    <Maximize2 size={18} />
+                                </button>
+                                <button
+                                    type="button"
+                                    onClick={handleRemoveImage}
+                                    className="p-2 bg-red-500/80 hover:bg-red-500 backdrop-blur-sm rounded-full text-white transition-colors"
+                                >
+                                    <X size={18} />
+                                </button>
+                            </div>
+                        </div>
+                    )}
+                </div>
+            </div>
+
+            <div className="bg-white dark:bg-zinc-900 p-6 rounded-lg border border-zinc-200 dark:border-zinc-800 space-y-4">
                 <h3 className="font-semibold text-lg border-b pb-2 mb-4">会場</h3>
 
                 <div className="space-y-2">
@@ -283,5 +377,10 @@ export function LiveForm({ initialData, venues }: { initialData?: LiveItem, venu
         </div>
       </div>
     </form>
+    <ImageModal 
+        src={flyerUrl} 
+        isOpen={isPreviewOpen} 
+        onClose={() => setIsPreviewOpen(false)} 
+    />
   );
 }
