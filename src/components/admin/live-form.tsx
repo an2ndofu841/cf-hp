@@ -99,6 +99,7 @@ export function LiveForm({ initialData, venues }: { initialData?: LiveItem, venu
   };
 
   return (
+    <>
     <form action={handleSubmit} className="max-w-4xl mx-auto space-y-8 pb-12">
       <div className="flex items-center justify-between">
         <Link 
@@ -382,5 +383,6 @@ export function LiveForm({ initialData, venues }: { initialData?: LiveItem, venu
         isOpen={isPreviewOpen} 
         onClose={() => setIsPreviewOpen(false)} 
     />
+    </>
   );
 }
