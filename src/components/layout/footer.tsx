@@ -8,7 +8,7 @@ export function Footer() {
         <a href="#" className="hover:text-pixel-blue hover:underline">Instagram</a>
         <a href="#" className="hover:text-pixel-blue hover:underline">YouTube</a>
       </div>
-      <p>© 2026 Crazy Fantasy. All Rights Reserved.</p>
+      <p>© 2026 株式会社めしあがレーベル. All Rights Reserved.</p>
     </footer>
   );
 }
