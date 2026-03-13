@@ -63,6 +63,19 @@ export default async function Home({
                 />
              </div>
 
+             <div className="absolute left-4 top-4 right-4 md:left-8 md:top-8 md:right-auto md:max-w-md z-20">
+               <div className="relative border-4 border-foreground bg-background px-4 py-3 shadow-[6px_6px_0_0_rgba(0,0,0,0.85)]">
+                 <p className="text-sm md:text-base font-bold leading-relaxed text-foreground">
+                   Crazy Fantasyの公式サイトへようこそ！
+                 </p>
+                 <div className="mt-2 inline-block border-2 border-foreground bg-foreground px-2 py-1 text-[10px] md:text-xs font-bold text-background">
+                   RPG
+                 </div>
+                 <div className="absolute left-8 top-full h-0 w-0 border-l-[14px] border-r-[14px] border-t-[18px] border-l-transparent border-r-transparent border-t-foreground" />
+                 <div className="absolute left-[34px] top-full h-0 w-0 translate-y-[-4px] border-l-[10px] border-r-[10px] border-t-[14px] border-l-transparent border-r-transparent border-t-background" />
+               </div>
+             </div>
+
              {/* Optional Overlay Text or UI */}
              <div className="absolute bottom-4 right-4 bg-background/80 p-2 border-2 border-foreground text-xs">
                 WORLD MAP
