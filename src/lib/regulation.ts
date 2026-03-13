@@ -117,7 +117,103 @@ SNSへの投稿 OK です。
 スタッフの注意に従っていただけない場合、即時のご退場、および今後のイベント・ライブへの出入り禁止処分とさせていただく場合がございます。
 皆様のご理解とご協力をお願い申し上げます。`;
 
-export const DEFAULT_REGULATION_EN = "";
+export const DEFAULT_REGULATION_EN = `[Important] Regulations Regarding Presents and Fan Letters
+Thank you for your continuous support of Crazy Fantasy.
+To ensure a safe and enjoyable environment for everyone, we have established the following rules regarding presents and fan letters for our members.
+We appreciate your understanding and cooperation.
+
+🚫 Prohibited Items (NG)
+The following items cannot be accepted.
+Please note that staff may refuse or dispose of items at their discretion.
+
+1. Food and Beverages
+Handmade or home-cooked food (e.g., homemade sweets, bento boxes).
+Opened food items.
+Perishables or items requiring refrigeration/freezing (e.g., cakes, fresh desserts, fruit).
+Only unopened, store-bought items with a clear expiration date that can be stored at room temperature are permitted.
+Drink tickets (including exchange vouchers for cafes, etc.).
+
+2. Monetary Items and High-Value Goods
+Cash.
+Cash equivalents (gift certificates, gift cards, prepaid cards, lottery tickets, etc.).
+High-priced items exceeding a retail value of 10,000 JPY (excluding tax).
+Even if the price is unknown, items judged to be high-value may be refused.
+
+3. Electronics and Recording Media
+Storage devices (HDDs, USB drives, CD-Rs, DVD-Rs, BD-Rs, SD cards, etc.).
+Unopened commercial products (e.g., retail CDs/DVDs) are exempt, but any media containing data is prohibited.
+Electrical appliances (home electronics, communication devices, etc.).
+
+4. Living Things and Plants
+All living creatures (animals, insects, etc.).
+Only fresh flowers (stand flowers, arrangements, bouquets) are permitted.
+
+5. Dangerous Goods and Used Items
+Dangerous materials (explosives, fireworks, blades, pharmaceuticals, items with strong odors, etc.).
+Opened or used items (including second-hand goods).
+
+6. Size and Weight Restrictions
+For ease of transport and storage, we cannot accept items exceeding:
+Total dimensions: Length + Width + Height = 80 cm.
+Weight: 5 kg.
+Any shape that is difficult for one person to carry.
+
+7. Miscellaneous
+Items offensive to public order and morals.
+Items containing political or religious claims.
+Any other items deemed inappropriate by staff.
+
+⚠️ Special Notes (Advance Inspection Required)
+The following items will be inspected by staff for safety:
+Plushies/Stuffed toys.
+Fan letters.
+Please do not hand these directly to members. Place them in the designated Present Box or hand them to a staff member.
+Items will be delivered to members after inspection (which may take some time).
+
+📸 Benefit Event & Merch Regulations
+Rules regarding interaction events (Cheki sessions, etc.).
+
+1. Basic Rules for Interaction
+Cheki Ticket Limits: A maximum of 2 tickets can be used per turn. If you have 3 or more tickets, please return to the end of the line after your session.
+Photography: Please hand your ticket to the staff. Self-photography (selfies, etc.) by customers is prohibited.
+Posing: You may suggest poses, but we will refuse requests for poses that make the member uncomfortable or require excessive physical strain.
+Props: Members are prohibited from holding a customer's personal belongings during photos.
+
+2. Prohibited Acts (NG)
+No Physical Contact: Touching the members or their costumes is strictly prohibited. Do not attempt to fix their outfits.
+Proximity: Avoid excessive closeness or putting your face too close to the member.
+Privacy: Sharing contact information (phone number, SNS IDs, address, etc.) or handing out business cards is prohibited. Probing for personal information is also banned.
+Private Contact: Please refrain from sending direct messages (DMs) to members. All DMs are managed by the office.
+Inappropriate Behavior: Lewd, offensive, or unethical comments are prohibited. Intoxicated individuals will be denied entry.
+Other: Unauthorized filming, recording, or "stealth" photography is prohibited. Approaching members outside of ticketed times (free-loading), during transit, or "stalking/waiting" (ambushing) is strictly forbidden.
+
+🎤 Live Performance Regulations
+1. Photography and Social Media
+Photos and Videos: OK
+Social Media Posting: OK
+Please include the hashtag #CrazyFantasy, link to the official account, or provide proper credit when posting.
+
+2. Etiquette and Prohibited Acts
+Dangerous Acts: Mosh pits, diving, lifting, or surfing are prohibited as they are dangerous to others.
+Nuisance Acts: Violence, harassment, or verbal abuse is prohibited. Do not leave belongings on the floor or tables to "reserve" spots. No outside food or drink.
+Waiting/Following: Waiting for members to enter or exit the venue, or following them while they are moving, is strictly prohibited as it inconveniences the neighborhood.
+
+🎂 Birthday Festivals, Graduations, and Fan Projects
+To prevent trouble, customer-led projects must follow these rules:
+Advance Application: You must submit a formal project proposal to the management in advance. We will notify you if it is approved.
+
+Prohibited Projects: To ensure a fair environment, the following are prohibited:
+Setting up stand flowers (flower stands).
+Crowdfunding or soliciting money from other fans.
+Collecting message cards from unspecified large groups (to prevent blocking walkways or forcing others to participate).
+
+Presents: Individual gifts must follow the "Present Regulations" listed above.
+
+⚠️ Violations
+If you violate these rules or if staff deems your behavior inappropriate, you will be warned.
+Failure to follow staff instructions may lead to immediate removal and a permanent ban from future events and lives.
+
+Thank you for your cooperation in supporting Crazy Fantasy!`;
 
 export function getSettingText(value: unknown): string {
   if (!value || typeof value !== "object") {
