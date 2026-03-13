@@ -32,6 +32,7 @@ export default async function Home({
     { label: 'DISCO', description: 'Sound Test', href: `/${lang}/disco` },
     { label: 'MOVIE', description: 'Cinematics', href: `/${lang}/movie` },
     { label: 'GOODS', description: 'Item Shop', href: `/${lang}/goods` },
+    { label: 'RULE', description: 'Regulation', href: `/${lang}/regulation` },
   ];
 
   return (

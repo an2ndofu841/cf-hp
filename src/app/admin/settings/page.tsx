@@ -1,18 +1,26 @@
-import { Construction } from "lucide-react";
+import { createClient } from "@/lib/supabase/server";
+import { RegulationForm } from "@/components/admin/regulation-form";
+import {
+  DEFAULT_REGULATION_EN,
+  DEFAULT_REGULATION_JA,
+  getSettingText,
+} from "@/lib/regulation";
 
-export default function AdminSettingsPage() {
+export default async function AdminSettingsPage() {
+  const supabase = await createClient();
+  const { data } = await supabase
+    .from("settings")
+    .select("key, value")
+    .in("key", ["regulation_ja", "regulation_en"]);
+
+  const initialJa =
+    getSettingText(data?.find((item) => item.key === "regulation_ja")?.value) ||
+    DEFAULT_REGULATION_JA;
+  const initialEn =
+    getSettingText(data?.find((item) => item.key === "regulation_en")?.value) ||
+    DEFAULT_REGULATION_EN;
+
   return (
-    <div className="space-y-6">
-      <h1 className="text-2xl font-bold text-zinc-900 dark:text-zinc-100">設定</h1>
-      <div className="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl p-12 text-center">
-        <div className="w-16 h-16 bg-zinc-100 dark:bg-zinc-800 rounded-full flex items-center justify-center mx-auto mb-4 text-zinc-400">
-            <Construction size={32} />
-        </div>
-        <h3 className="text-lg font-medium text-zinc-900 dark:text-white mb-2">準備中</h3>
-        <p className="text-zinc-500 max-w-sm mx-auto">
-            この機能は現在準備中です。しばらくお待ちください。
-        </p>
-      </div>
-    </div>
+    <RegulationForm initialJa={initialJa} initialEn={initialEn} />
   );
 }
