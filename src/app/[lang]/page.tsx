@@ -31,7 +31,7 @@ export default async function Home({
     { label: 'PROFILE', description: 'Character Stats', href: `/${lang}/profile` },
     { label: 'DISCO', description: 'Sound Test', href: `/${lang}/disco` },
     { label: 'MOVIE', description: 'Cinematics', href: `/${lang}/movie` },
-    { label: 'GOODS', description: 'Item Shop', href: `/${lang}/goods` },
+    { label: 'GOODS', description: 'Item Shop', href: 'https://crazyfantasy-shop.mlbl.co.jp/' },
     { label: 'RULE', description: 'Regulation', href: `/${lang}/regulation` },
   ];
 
