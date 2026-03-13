@@ -56,23 +56,23 @@ export default async function Home({
              </video>
              
              {/* Character Layer */}
-             <div className="absolute inset-0 pointer-events-none flex items-center justify-center">
+             <div className="absolute inset-0 pointer-events-none flex items-end justify-end px-6 pb-8 md:px-16 md:pb-10">
                 <MascotCharacter 
                   src="/images/mascot.png" 
-                  className="w-32 h-32 md:w-48 md:h-48 drop-shadow-lg z-10" 
+                  className="w-24 h-24 md:w-40 md:h-40 drop-shadow-lg z-10" 
                 />
              </div>
 
-             <div className="absolute left-4 top-4 right-4 md:left-8 md:top-8 md:right-auto md:max-w-md z-20">
-               <div className="relative border-4 border-foreground bg-background px-4 py-3 shadow-[6px_6px_0_0_rgba(0,0,0,0.85)]">
-                 <p className="text-sm md:text-base font-bold leading-relaxed text-foreground">
+             <div className="absolute left-3 top-3 z-20 w-[72%] max-w-[280px] md:left-8 md:top-8 md:w-full md:max-w-md">
+               <div className="relative border-4 border-foreground bg-background px-3 py-3 md:px-4 shadow-[6px_6px_0_0_rgba(0,0,0,0.85)]">
+                 <p className="text-xs md:text-base font-bold leading-relaxed text-foreground">
                    Crazy Fantasyの公式サイトへようこそ！
                  </p>
                  <div className="mt-2 inline-block border-2 border-foreground bg-foreground px-2 py-1 text-[10px] md:text-xs font-bold text-background">
                    RPG
                  </div>
-                 <div className="absolute left-8 top-full h-0 w-0 border-l-[14px] border-r-[14px] border-t-[18px] border-l-transparent border-r-transparent border-t-foreground" />
-                 <div className="absolute left-[34px] top-full h-0 w-0 translate-y-[-4px] border-l-[10px] border-r-[10px] border-t-[14px] border-l-transparent border-r-transparent border-t-background" />
+                 <div className="absolute left-10 top-full h-0 w-0 border-l-[12px] border-r-[12px] border-t-[16px] border-l-transparent border-r-transparent border-t-foreground md:left-14 md:border-l-[14px] md:border-r-[14px] md:border-t-[18px]" />
+                 <div className="absolute left-[42px] top-full h-0 w-0 translate-y-[-4px] border-l-[8px] border-r-[8px] border-t-[12px] border-l-transparent border-r-transparent border-t-background md:left-[58px] md:border-l-[10px] md:border-r-[10px] md:border-t-[14px]" />
                </div>
              </div>
 
