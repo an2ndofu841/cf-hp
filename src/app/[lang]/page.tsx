@@ -56,10 +56,7 @@ export default async function Home({
              </video>
              
              {/* Character + Speech Bubble */}
-             <MascotWithBubble
-               message={lang === "en" ? "Welcome to the official Crazy Fantasy site!" : "Crazy Fantasyの公式サイトへようこそ！"}
-               lang={lang}
-             />
+             <MascotWithBubble lang={lang} />
 
              {/* Optional Overlay Text or UI */}
              <div className="absolute bottom-4 right-4 bg-background/80 p-2 border-2 border-foreground text-xs">
