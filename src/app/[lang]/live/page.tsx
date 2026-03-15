@@ -66,7 +66,7 @@ export default async function LivePage({
         </div>
 
         <div className="mt-12 text-center">
-             <Footer />
+             <Footer lang={lang} />
         </div>
       </main>
     </div>

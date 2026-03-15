@@ -102,7 +102,7 @@ export default async function Home({
           <CommandMenu items={menuItems} />
         </section>
         
-        <Footer />
+        <Footer lang={lang} />
       </main>
     </div>
   );

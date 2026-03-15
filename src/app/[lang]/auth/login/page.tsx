@@ -78,7 +78,7 @@ export default async function LoginPage({
           </PixelCard>
         </div>
 
-        <Footer />
+        <Footer lang={lang} />
       </main>
     </div>
   );

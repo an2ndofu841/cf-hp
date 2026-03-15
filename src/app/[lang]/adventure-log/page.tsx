@@ -84,7 +84,7 @@ export default async function AdventureLogPage({
           </div>
         </div>
 
-        <Footer />
+        <Footer lang={lang} />
       </main>
     </div>
   );

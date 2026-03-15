@@ -65,7 +65,7 @@ export default async function NewsPage({
              <PixelButton href={`/${lang}`} variant="outline">← BACK TO TOP</PixelButton>
         </div>
 
-        <Footer />
+        <Footer lang={lang} />
       </main>
     </div>
   );

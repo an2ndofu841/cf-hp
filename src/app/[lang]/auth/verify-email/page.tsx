@@ -57,7 +57,7 @@ export default async function VerifyEmailPage({
           </PixelCard>
         </div>
 
-        <Footer />
+        <Footer lang={lang} />
       </main>
     </div>
   );

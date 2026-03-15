@@ -56,7 +56,7 @@ export default async function RegulationPage({
           </PixelButton>
         </div>
 
-        <Footer />
+        <Footer lang={lang} />
       </main>
     </div>
   );

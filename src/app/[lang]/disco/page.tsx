@@ -26,7 +26,7 @@ export default async function DiscoPage({
         <div className="mt-12 text-center">
              <PixelButton href={`/${lang}`} variant="outline">← BACK TO TOP</PixelButton>
         </div>
-        <Footer />
+        <Footer lang={lang} />
       </main>
     </div>
   );
