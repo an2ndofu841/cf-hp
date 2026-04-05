@@ -17,11 +17,11 @@ export default async function TokushohoPage({
         {
           label: "Address",
           value:
-            "Shibuya Dogenzaka Store\n〒150-0044\nMIEUX Shibuya Bldg. 8F, 5-3 Maruyamacho, Shibuya-ku, Tokyo",
+            "Shibuya Dogenzaka\n〒150-0044\nMIEUX Shibuya Bldg. 8F, 5-3 Maruyamacho, Shibuya-ku, Tokyo",
         },
         {
           label: "Phone",
-          value: "Will be disclosed promptly upon request.",
+          value: "070-8464-7967",
         },
         { label: "Email", value: "info@mlbl.co.jp" },
         {
@@ -57,11 +57,11 @@ export default async function TokushohoPage({
         {
           label: "住所",
           value:
-            "渋谷道玄坂店\n〒150-0044\n東京都渋谷区円山町5番3号 MIEUX渋谷ビル8階",
+            "渋谷道玄坂\n〒150-0044\n東京都渋谷区円山町5番3号 MIEUX渋谷ビル8階",
         },
         {
           label: "電話番号",
-          value: "請求があった場合には速やかに開示いたします",
+          value: "070-8464-7967",
         },
         { label: "メールアドレス", value: "info@mlbl.co.jp" },
         {
