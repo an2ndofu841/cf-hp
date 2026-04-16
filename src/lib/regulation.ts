@@ -48,7 +48,7 @@ export const DEFAULT_REGULATION_JA = `【重要】プレゼント・ファンレ
 以下のアイテムにつきましては、安全確認のため必ずスタッフによる事前確認を行わせていただきます。
 ぬいぐるみ
 お手紙（ファンレター）
-※これらは直接メンバーへ手渡しせず、必ずプレゼントBOXへ入れていただくか、お近くのスタッフへお預けください。スタッフが中身を確認した後、メンバーへお渡しします（確認にお時間をいただく場合がございます）。
+※これらは直接メンバーへ手渡しせず、必ずお近くのスタッフへお預けください。スタッフが中身を確認した後、メンバーへお渡しします（確認にお時間をいただく場合がございます）。
 
 📸 特典会・物販に関するレギュレーション
 メンバーとの交流イベント（チェキ撮影等）におけるルールです。
@@ -91,7 +91,6 @@ SNSへの投稿 OK です。
 迷惑行為の禁止
 暴力、嫌がらせ、他人を不快にさせる野次や暴言は禁止です。
 フロアやテーブル等への荷物の放置（場所取り行為）はご遠慮ください。
-飲食物の持ち込みは禁止です。
 入り待ち・出待ちの禁止
 会場周辺での入り待ち、出待ち、移動時の執拗な追っかけ行為は禁止です。近隣のご迷惑となりますので絶対におやめください。
 
@@ -167,7 +166,7 @@ Any other items deemed inappropriate by staff.
 The following items will be inspected by staff for safety:
 Plushies/Stuffed toys.
 Fan letters.
-Please do not hand these directly to members. Place them in the designated Present Box or hand them to a staff member.
+Please do not hand these directly to members. Please hand them to a staff member.
 Items will be delivered to members after inspection (which may take some time).
 
 📸 Benefit Event & Merch Regulations
@@ -195,7 +194,7 @@ Please include the hashtag #CrazyFantasy, link to the official account, or provi
 
 2. Etiquette and Prohibited Acts
 Dangerous Acts: Mosh pits, diving, lifting, or surfing are prohibited as they are dangerous to others.
-Nuisance Acts: Violence, harassment, or verbal abuse is prohibited. Do not leave belongings on the floor or tables to "reserve" spots. No outside food or drink.
+Nuisance Acts: Violence, harassment, or verbal abuse is prohibited. Do not leave belongings on the floor or tables to "reserve" spots.
 Waiting/Following: Waiting for members to enter or exit the venue, or following them while they are moving, is strictly prohibited as it inconveniences the neighborhood.
 
 🎂 Birthday Festivals, Graduations, and Fan Projects
