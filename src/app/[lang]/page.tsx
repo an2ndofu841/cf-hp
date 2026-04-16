@@ -58,10 +58,6 @@ export default async function Home({
              {/* Character + Speech Bubble */}
              <MascotWithBubble lang={lang} />
 
-             {/* Optional Overlay Text or UI */}
-             <div className="absolute bottom-4 right-4 bg-background/80 p-2 border-2 border-foreground text-xs">
-                WORLD MAP
-             </div>
           </PixelCard>
         </section>
 
