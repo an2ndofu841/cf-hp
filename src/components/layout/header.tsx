@@ -34,7 +34,7 @@ export async function Header({ lang }: HeaderProps) {
       <div className="flex flex-wrap items-center justify-center gap-4 md:gap-6">
         {/* Auth Buttons */}
         <div className="flex items-center gap-3">
-           {user ? (
+           {user && (
               <>
                 <PixelButton href={`/${lang}/adventure-log`} variant="secondary" size="sm" className="border-pixel-yellow text-xs h-10 px-4 whitespace-nowrap">
                    ★ MY PAGE
@@ -47,15 +47,6 @@ export async function Header({ lang }: HeaderProps) {
                      LOGOUT
                   </PixelButton>
                 </form>
-              </>
-           ) : (
-              <>
-                <PixelButton href={`/${lang}/auth/login`} variant="outline" size="sm" className="text-xs h-10 px-6 whitespace-nowrap bg-background text-foreground hover:bg-foreground hover:text-background">
-                   LOGIN
-                </PixelButton>
-                <PixelButton href={`/${lang}/auth/signup`} variant="primary" size="sm" className="text-xs h-10 px-6 whitespace-nowrap">
-                   SIGN UP
-                </PixelButton>
               </>
            )}
         </div>

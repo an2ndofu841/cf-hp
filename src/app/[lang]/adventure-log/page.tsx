@@ -21,7 +21,7 @@ export default async function AdventureLogPage({
   const { data: { user } } = await supabase.auth.getUser();
 
   if (!user) {
-    redirect(`/${lang}/auth/login`);
+    redirect(`/${lang}`);
   }
 
   return (
